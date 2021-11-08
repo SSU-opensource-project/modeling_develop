@@ -57,6 +57,7 @@ for i in range(2):  # for i in range(int(totalPageNum)):
             print("Image URL: ", img_url)
             print()
             # 이미지 다운로드. URL도 원하면 다운받을 수 있을듯
+            # 위의 정보들을 구조체형식으로 묶어서 DB로 보내면 될듯
             urllib.request.urlretrieve(
                 img_url, FindingItemName + str(i+1) + "Page "+str(j+1)+".jpg")
 
