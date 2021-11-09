@@ -3,6 +3,10 @@ from selenium.webdriver.common.keys import Keys
 import os
 import time
 import urllib.request
+import sys  # 잠시 출력 텍스트값 저장을 위함
+
+sys.stdout = open('Tmp DB.txt', 'w')
+
 
 # itemName: 제품 카테고리, pageNum: 무신사에서 제공하는 페이지 값
 
@@ -27,10 +31,10 @@ print("Total Page of ", FindingItemName, " : ", str(totalPageNum))
 
 # 실험에서는 2페이지만하기
 
-for i in range(2):  # for i in range(int(totalPageNum)):
+for i in range(3):  # for i in range(int(totalPageNum)):
     pageUrl = PageUrl(FindingItemName, i+1)
     driver.get(pageUrl)
-    time.sleep(2)  # 이미지 로딩동안 기다리기
+    time.sleep(1)  # 이미지 로딩동안 기다리기
 
     item_infos = driver.find_elements_by_css_selector(
         ".img-block")  # 한 페이지에 있는 이미지 개수
@@ -42,7 +46,6 @@ for i in range(2):  # for i in range(int(totalPageNum)):
 
     for j in range(len(item_infos)):  # 페이지에 있는 이미지 개수만큼
         try:
-            time.sleep(0.5)
 
             title = item_infos[j].get_attribute("title")  # 제품 이름
             price = item_infos[j].get_attribute("data-bh-content-meta3")  # 가격
@@ -51,20 +54,20 @@ for i in range(2):  # for i in range(int(totalPageNum)):
             img_url = item_images[j].get_attribute(
                 "data-original")  # 이미지 자체의 url (다운)
 
-            print("Title: ", title)
-            print("Price: ", price)
-            print("item URL: ", item_url)
-            print("Image URL: ", img_url)
-            print()
+            print(title, price, item_url, img_url)
+            # print("Title: ", title)
+            # print("Price: ", price)
+            # print("item URL: ", item_url)
+            # print("Image URL: ", img_url)
+            # print()
             # 이미지 다운로드. URL도 원하면 다운받을 수 있을듯
-            # 위의 정보들을 구조체형식으로 묶어서 DB로 보내면 될듯
             urllib.request.urlretrieve(
-                img_url, FindingItemName + str(i+1) + "Page "+str(j+1)+".jpg")
+                img_url, FindingItemName + str(i+1) + " Page "+str(j+1)+".jpg")
 
         except Exception as e:  # 에러떠도 일단 패스
             print(e)
             pass
-
+sys.stdout.close()
 driver.close()
 
 # elem = driver.find_element_by_name("q")
