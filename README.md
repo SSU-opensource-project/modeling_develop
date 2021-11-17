@@ -1,6 +1,31 @@
 # modeling_develop
 오픈소스 프로젝트 모델링(openCV + DL + AI) 공간입니다.
 
+---------------
+### 21.11.17 Update
+
+#### Train Data 수집 
+* 상의 데이터 총 5만개 크롤링 완료 (`MusinsaCrawling_1.2.ipynb` 파일로 진행)
+    1. 소요시간 : 3시간 이내
+    2. 문제점 : 중복되는 상품 존재(url과 상품명으로 조합했을 때 발견한 건들) 삭제하려고 했으나, 저장된 제품의 사진 넘버와 데이터의 넘버가 일치하지 않는 문제 고려 -> 중복되는 데이터 품기로
+    ![data2.PNG](./data2.PNG)
+    3. 상품 정보에 대한 csv 파일 (`train_top50000.csv` 파일 확인)
+
+* 데이터를 불리기 위한 Data Augmentataion 작업 -> 회의 필요
+    1. 단순히 train 데이터를 늘리기보다, segmentation하여 classification할 수 있는 데이터 양을 늘릴 수 있는 방법 고려.
+    2. `imgaug` 라이브러리를 사용하거나 기초적인 data augmentataion 기법(좌우 반전, 회전 등)을 활용 예정. 일단 전자 시도 예정.
+    [라이브러리 사용](https://uos-deep-learning.tistory.com/17)
+    [기초적인 data augmentation](https://qzqz.tistory.com/660)
+
+#### Data Preprocessing
+* 크기 조절에서 발생하는 문제점 해결
+    1. resize 및 thumbnail 함수 실행 뒤 이미지가 회전되는 문제 해결
+    2. 이미지 전처리 base code 돌려보기 성공 (`ImagePreprocessing1.ipynb` 파일 확인) (기존 파일이었던 `ImagePreprocessing.ipynb` 삭제)
+    - 어떠한 전처리들이 유용하게 적용 가능한지 확인 후 다음 주까지 돌릴 예정.
+
+* Keras 사용해서 이미지 전처리 가능 -> 적용 방법 확인 예정
+    - 기존 작성했던 전처리 코드와 성능 비교 예정.
+
 ----------------
 ### 21.11.09 Update
 
