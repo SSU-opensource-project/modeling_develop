@@ -8,7 +8,7 @@
 * 상의 데이터 총 5만개 크롤링 완료 (`MusinsaCrawling_1.2.ipynb` 파일로 진행)
     1. 소요시간 : 3시간 이내
     2. 문제점 : 중복되는 상품 존재(url과 상품명으로 조합했을 때 발견한 건들) 삭제하려고 했으나, 저장된 제품의 사진 넘버와 데이터의 넘버가 일치하지 않는 문제 고려 -> 중복되는 데이터 품기로
-    ![drawble/data2.PNG](./data2.PNG)
+    ![drawble/data2.PNG](./drawble/data2.PNG)
     3. 상품 정보에 대한 csv 파일 (`train_top50000.csv` 파일 확인)
 
 * 데이터를 불리기 위한 Data Augmentataion 작업 -> 회의 필요
@@ -69,8 +69,8 @@ TmpDB: 임시적으로 DB로 생각하여 제품들의 정보 저장
 
 #### 일반 사용할 이미지 데이터셋 확인
 * 이미지 파일들이 모여진 폴더(번호로 명명된 파일들) + a(ex. 설명들이 모여있는 폴더)
-    ![drawble/data0.PNG](./data0.PNG)
-    ![drawble/data1.PNG](./data1.PNG)
+    ![drawble/data0.PNG](./drawble/data0.PNG)
+    ![drawble/data1.PNG](./drawble/data1.PNG)
     - 만약 이미지에 대한 설명으로 링크를 넣어줄 예정이라면 csv 확장자 파일을 통해 이미지의 번호-인덱스와 일치하는 곳에 링크를 넣는 형식으로도 진행 가능한지 가능성 여부 파악하기.
 
 #### Test Data 수집
