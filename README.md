@@ -8,6 +8,10 @@
 이미지 파일의 위치는, 사용자에게 띄워주기 위해 잠시 존재하고 있다. ->회의 필요
 
 ####의상 전처리 코드 (입고있는 옷 잘라서 배경 지우기)
+
+ 사용법 : python extract.py (이미지명)
+-> 이 코드가 적절하다 판단하면 모든 15만개의 파일을 적용시켜 저장 ->회의필요
+
 이에 필요한 h5 파일 링크 : ( 250메가라 바로 push가 되지 않음)
 https://drive.google.com/file/d/1l7PUB8uAGRyqvZ0ti0ZACoI2CzJxOVoI/view
  
