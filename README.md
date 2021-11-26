@@ -12,11 +12,11 @@
  1)현재 (Total_RealLast_Erase_1_2(Notcut).npy) -> 임시로 상의 4950개를 cut(지우는 전처리)을 하지않고 있는 그대로
 특징추출
  2)Total_RealLast_Erase_1_2.npy -> 자른 상태 추출 (자른 상태 보기 위해)
----
+
 Making_NPY.py : npy 파일 만들고
 Test_With_Prepared NPY.py로 만들어진 npy를 이용해 비교.
 
----
+
 Top-extract 폴더 : 
 상의 자를 이미지를 image 폴더에 넣고 main.py로 동작함.
 
