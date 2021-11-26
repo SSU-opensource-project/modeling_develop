@@ -2,6 +2,33 @@
 오픈소스 프로젝트 모델링(openCV + DL + AI) 공간입니다.
 
 ---------------
+### 21.11.26 Update
+###Feature 폴더 : 
+이 안에 있는 npy값은 크게 두가지이다.
+1.이미지 경로가 들어있는 npy값 (필요한지모르겠음. 잠시 띄우기 위해서 우선 저장함. 사용할 사람마다 달라짐.
+현재 저 안에 있는 값은 ErasePic 폴더 안에있는 이미지들인데 이는 너무 커서 보내기 힘듦...) 바꿔서 사용해야함.
+
+2.이미지의 특징들이 들어가있는 npy값. 
+ 1)현재 (Total_RealLast_Erase_1_2(Notcut).npy) -> 임시로 상의 4950개를 cut(지우는 전처리)을 하지않고 있는 그대로
+특징추출
+ 2)Total_RealLast_Erase_1_2.npy -> 자른 상태 추출 (자른 상태 보기 위해)
+---
+Making_NPY.py : npy 파일 만들고
+Test_With_Prepared NPY.py로 만들어진 npy를 이용해 비교.
+
+---
+Top-extract 폴더 : 
+상의 자를 이미지를 image 폴더에 넣고 main.py로 동작함.
+
+필요한 다운로드 파일 :
+https://drive.google.com/file/d/1DPydA0FpLYEHaFYDa8_oZAot_Ou5JefK/edit
+
+참조 깃은 노션에 존재
+
+
+
+
+
 ### 21.11.19 Update
 ###Feature 폴더 : 
 의상들의 특징이 저장되어있는 npy들과 이미지 파일들의 위치가 저장되어있는 npy파일이 있다.
