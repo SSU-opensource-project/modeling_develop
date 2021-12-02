@@ -53,16 +53,16 @@ class fashion_tools(object):
 
 # running code
 
-for i in range(1, 90):  # 잠시 90개만함. 근데 이것도 시간이 좀 걸림. 각 장당 2~3초
-    f = "./New_Pictures/"+str(i)+".jpg"  # 사진 있는 곳
+for i in range(1, 32):  # 잠시 90개만함. 근데 이것도 시간이 좀 걸림. 각 장당 2~3초
+    f = "./Top_extract_3/"+str(i)+".jpg"  # 사진 있는 곳
     api = fashion_tools(f, saved)
     image_ = api.get_dress(stack=True)
-    cv2.imwrite("Result"+str(i)+".png", image_)  # 임시 저장용사진
-    image1 = Image.open("Result"+str(i)+".png")
+    cv2.imwrite("./Test"+str(i)+".png", image_)  # 임시 저장용사진
+    image1 = Image.open("./Test"+str(i)+".png")
     # image1.show()
 
     croppedImage = image1.crop((512, 0, 1024, 512))
-    croppedImage.save('RealResult'+str(i)+'.PNG')  # 짤린 사진.
+    croppedImage.save('./Test'+str(i)+'.PNG')  # 짤린 사진.
    # croppedImage.show()
 #print("잘려진 사진 크기 :", croppedImage.size)
 
