@@ -34,7 +34,7 @@ img_paths = []
 features = []
 
 #img_paths = fe.Img_features
-feature_path = "./Feature/Total_RealLast_Erase_1_2(NotCut).npy"
+feature_path = "./Feature/Total_RealLast_Erase_1_2TT(NotCut).npy"
 for i in range(1, 4950):  # 범위조정
     if i % 100 == 0:
         print(i)
@@ -52,7 +52,7 @@ for i in range(1, 4950):  # 범위조정
     except Exception as e:
         print('예외가 발생했습니다.', e)
 
-img_path_1 = "./Feature/Image_1_2((NotCut)).npy"
+img_path_1 = "./Feature/Image_1_2TT((NotCut)).npy"
 np.save(img_path_1, img_paths)
 
 #feature_path = "./Feature/Total_RealLast_Erase.npy"

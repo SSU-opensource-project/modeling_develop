@@ -18,8 +18,6 @@ from utils_my import Read_Img_2_Tensor, Save_Image, Load_DeepFashion2_Yolov3
 
 model = Load_DeepFashion2_Yolov3()
 
-# 긁어온거
-
 
 def Detect_Clothes(img, model_yolov3, eager_execution=True):
     """Detect clothes in an image using Yolo-v3 model trained on DeepFashion2 dataset"""
@@ -65,9 +63,7 @@ def Detect_Clothes_and_Crop(img_tensor, model, threshold=0.5):
 
     class_names = ['short_sleeve_top', 'long_sleeve_top',
                    'vest', 'short_sleeve_outwear', 'long_sleeve_outwear', 'long_sleeve_dress', 'vest_dress', 'sling_dress', 'short_sleeve_dress']
-    # , 'shorts', 'trousers', 'short_sleeve_dress',
-    # ]  # 'long_sleeve_dress', 'vest_dress', 'sling_dress']
-    # crop out one cloth
+
     flag = 0
     for obj in list_obj:
         if obj['label'] in class_names and obj['confidence'] > threshold:
@@ -79,30 +75,14 @@ def Detect_Clothes_and_Crop(img_tensor, model, threshold=0.5):
     return img_crop
 
 
-if __name__ == "__main__":
-    tmpfile = Image.open('./tmp_strange2.jpg')  # Crop 안될시에 넣을 이상한 사진
-    for i in range(1, 4950):  # 사진범위 조정
-        if(i % 100 == 0):
-            print(i)
-        img_path = '../selenium/New_Many_Pics/'+str(i)+'.jpg'  # 이미지 위치
+img_path = 'test_2.jpg'  # 자를 사진 ( 사용자가 넣을 이미지 )
 # Read image
-        try:
-            img = cv2.imread(img_path)
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            img_tensor = Read_Img_2_Tensor(img_path)
+
+img = cv2.imread(img_path)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img_tensor = Read_Img_2_Tensor(img_path)
 
 # Clothes detection and crop the image
-            img_crop = Detect_Clothes_and_Crop(img_tensor, model)
+img_crop = Detect_Clothes_and_Crop(img_tensor, model)
 
-            if(flag == 0):
-                tmpfile.save('../selenium/test_t/'+str(i)+'.jpg')
-                flag = 1
-            else:
-                img_crop = cv2.resize(img_crop, dsize=(
-                    220, 220), interpolation=cv2.INTER_LINEAR)
-                Save_Image(
-                    img_crop, '../selenium/test_t/'+str(i)+'.jpg')
-        except Exception as e:
-            print(i)
-            tmpfile.save('../selenium/test_t/'+str(i)+'.jpg')
-            pass
+Save_Image(img_crop, 'test4result.jpg')  # 자른 값 결과 (특징 추출할 사진 위치)
