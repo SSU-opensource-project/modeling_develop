@@ -3,7 +3,7 @@
 
 ---------------
 ###21.12.04 Update
-#우선 아직 전처리 되지않은 npy파일 드라이브 다운 : https://drive.google.com/drive/my-drive
+#우선 아직 전처리 되지않은 npy파일 드라이브 다운 :https://drive.google.com/file/d/1skYuvtoNLWdAStIWdP8nOTgoDGx6-kMY/view?usp=sharing
 며칠 내로 전처리 된 npy 파일이 올라오면 다른거 바꿀필요없이 npy 파일만 바꾸면 됨.
 우선 연결을 시켜야되니까 올림. 
 
