@@ -9,7 +9,7 @@ import numpy as np
 import time
 import tensorflow as tf
 import cv2
-
+from PIL import Image
 from utils_my import Read_Img_2_Tensor, Load_DeepFashion2_Yolov3, Draw_Bounding_Box
 
 
@@ -55,15 +55,21 @@ def Detect_Clothes_and_Crop(img_tensor, model, threshold=0.5):
     img_height = img.shape[0]
 
     class_names = ['short_sleeve_top', 'long_sleeve_top',
-                   'vest','short_sleeve_outwear', 'long_sleeve_outwear']
+                   'vest', 'short_sleeve_outwear', 'long_sleeve_outwear']
     # , 'shorts', 'trousers', 'short_sleeve_dress',
     # ]  # 'long_sleeve_dress', 'vest_dress', 'sling_dress']
     # crop out one cloth
+    flag = 0
     for obj in list_obj:
         if obj['label'] in class_names and obj['confidence'] > threshold:
             # if obj['label'] == 'short_sleeve_top' and obj['confidence']>threshold:
             img_crop = img[int(obj['y1']*img_height): int(obj['y2']*img_height),
                            int(obj['x1']*img_width): int(obj['x2']*img_width), :]
+            flag = 1
+
+    if(flag == 0):
+        img_crop = img[0:0, 0:0, :]
+        print("0,0")
 
     return img_crop
 
