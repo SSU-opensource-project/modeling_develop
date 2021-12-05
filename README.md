@@ -9,22 +9,30 @@ Crop된 npy파일 드라이브: https://drive.google.com/file/d/1QqkhMAMvRbJV8gT
 -> 서버에서 사용될 예정
 
 1. 사용자가 이미지 줌 ->
+
 2. Top-extract 폴더 안 main.py 함수를 통해 그 사진을 상의만 Crop함.
 (
 	그 폴더 안에
 	https://drive.google.com/file/d/1DPydA0FpLYEHaFYDa8_oZAot_Ou5JefK/edit 다운받고
 	이거 다운받으면 built 폴더 생기는데 Top-extract 폴더 안에 넣고 실행하면 됨.
 )
+
 3. 그 결과 이미지를 들고 Pick_results.py를 실행
+
 4.  그 결과로 50개(늘리기 가능)의 결과 ids 도출 
+
 5.  그 값들을 서버에게 보냄(tran_top50000.csv 참조)
+
 6.  서버는 그 id에 맞는 img url 출력 
+
 
 ##주의점 : 서버는 미리 모델들을 load를 해야함. (서버가 켜져있으므로)
 이유 : 모델 load하는데 시간이 꽤 듬 ( main.py에서 5초, Pick_resault에서 4초. 하지만 하고나면은
 크게 안듬)
+##
 + 이미지 들어오고나서 자르고 저장하고 그 값을 비교함
 -> ids 출력에만 2~3초 소요 예상됨.(빠르면)
+
 
 ###21.12.04 Update
 #우선 아직 전처리 되지않은 npy파일 드라이브 다운 :https://drive.google.com/file/d/1skYuvtoNLWdAStIWdP8nOTgoDGx6-kMY/view?usp=sharing
