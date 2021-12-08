@@ -2,7 +2,8 @@
 오픈소스 프로젝트 모델링(openCV + DL + AI) 공간입니다.
 
 ---------------
-###21.12.06 Update 
+### 21.12.06 Update 
+
 Erase 전처리 결과 -> 시간낭비 오지게했지만 결국 별로인걸로 판명 (ㅠㅠ 내시간)
 Crop만 해도 어느정도 양호 함.
 Crop된 npy파일 드라이브: https://drive.google.com/file/d/1QqkhMAMvRbJV8gTq_u6C3Pj7-RefTZHo/view?usp=sharing
@@ -26,32 +27,70 @@ Crop된 npy파일 드라이브: https://drive.google.com/file/d/1QqkhMAMvRbJV8gT
 6.  서버는 그 id에 맞는 img url 출력 
 
 
-##주의점 : 서버는 미리 모델들을 load를 해야함. (서버가 켜져있으므로)
+#### 주의점 : 서버는 미리 모델들을 load를 해야함. (서버가 켜져있으므로)
 이유 : 모델 load하는데 시간이 꽤 듬 ( main.py에서 5초, Pick_resault에서 4초. 하지만 하고나면은
 크게 안듬)
-##
-+ 이미지 들어오고나서 자르고 저장하고 그 값을 비교함
+
+#### + 이미지 들어오고나서 자르고 저장하고 그 값을 비교함
 -> ids 출력에만 2~3초 소요 예상됨.(빠르면)
 
+---------------
 
-###21.12.04 Update
-#우선 아직 전처리 되지않은 npy파일 드라이브 다운 :https://drive.google.com/file/d/1skYuvtoNLWdAStIWdP8nOTgoDGx6-kMY/view?usp=sharing
+### 21.12.04 Update
+
+#### 우선 아직 전처리 되지않은 npy파일 드라이브 다운 :https://drive.google.com/file/d/1skYuvtoNLWdAStIWdP8nOTgoDGx6-kMY/view?usp=sharing
 며칠 내로 전처리 된 npy 파일이 올라오면 다른거 바꿀필요없이 npy 파일만 바꾸면 됨.
 우선 연결을 시켜야되니까 올림. 
 
 1. 사용자 사진 -> Top-extract 폴더 안에 main.py 를 실행시켜 크롭
 2. 그 크롭된 사진을 Pick_results.py 를 사용하면 비슷한 이미지들의 id 30개 반환
 3. 디비에서 그 id에 맞는 이미지 url 을 띄우기.
-#현재 디비로 쓰일 csv파일은 train_top50000.csv 파일. (상품 이름이 깨지는 것 같긴 한데, 화면에 띄우기엔 애매하기도 함.
+    - 현재 디비로 쓰일 csv파일은 train_top50000.csv 파일. (상품 이름이 깨지는 것 같긴 한데, 화면에 띄우기엔 애매하기도 함.
 왜냐면 모델명이 주루룩 나오는거라.. 우선 신혜님께 말씀드림.)
 
 
 - 주의할점 : 시간이 얼마나 걸릴지 모르겠음. 해봐야 알 것 같음
 - 코드를 연결하기위해 코드 수정이 필요함. ex) 현재는 id 30개 print지만, 서버에 건네주는 방식
 
+---------------
+### 21.12.02 Update
+
+#### 아래 언급되는 모든 과정은 시온님께서 진행하시는 모델링 외에 다른 다양한 모델을 시험 -> 성능 비교의 과정을 수행하기 위한 새로운 모델링 시험 과정.
+#### 만약, 12/2까지 모델링을 완료하지 못하면 시간적인 문제로 시온님이 진행하신 코드를 그대로 이식하는 방향으로.
+
+#### 전체적인 과정 : Data Augmentation 자체 진행 -> 기본적인 Data Preprocessing(기본 전처리 및 Feature Extraction) -> 모델에 적용
+* Data Augmentation :
+    1. `Augmentor` 라이브러리를 활용한 Data Augmentation -> 실패
+    ```
+    # Error Message : 'OSError' object has no attribute 'message'  
+    # Can not be solved. Not PNG / JPEG problem
+    ```
+
+    2. `Keras` 라이브러리 내 `ImageGenerator`를 이용한 Data Augmentation => 1장의 사진 당 약 1000장의 사진을 생성하도록 = 5000 * 1000 -> 성공했으나 But it is...
+    ![drawble/data_aug.png](./drawble/data_aug.png)
+        - 5000 * 1000 인데 5만개가 만들어질 거라고 생각했음... 시간이 왕창 오래 걸리더니(왜인지 이틀 즈음 걸리더라) 5백만개 즈음 만들어진 것 확인.
+        - Data 다루기에 컴퓨터가 감당 못할 것 같아서 자르기로 결정 -> 3번으로
+
+    3. 데이터를 감당 가능할 정도로 2번의 beta 버전을 만든다고 생각. (너무 많은 데이터에 욕심을 부리기보다 일단 성능을 내보자)
+        - 데이터 labeling : 0~999 (총 1000개의 labeling)
+        - 한 개의 label 당 존재하는 데이터 : 약 50개
+        - 총 데이터 51875개로 확인.
+        ![drawble/data_aug2.PNG](./drawble/data_aug.PNG)
+
+* Data Preprocessing & Modeling :
+    1. `YOLO`를 통해서 Upper clothes를 인식 -> Crop하는 방식 생각
+        - 모델을 만드기 위한 데이터 부분에 오류 잔재. 데이터를 바꿔서 해볼 것이냐 또는 `YOLO`가 아닌 다른 모델을 사용해서 해볼 것인가
+        [원하는 YOLO 모델 만들기 참고 사이트](https://github.com/curiousily/Getting-Things-Done-with-Pytorch/blob/master/10.object-detection-with-YOLO-v5.ipynb)
+        [CROP 하는 방식](https://stackoverflow.com/questions/55204998/crop-and-select-only-the-detected-region-from-an-image-in-python)
+    
+    - 전체적으로 참고하고자 한 오픈 소스 및 모델링 과정
+    [참고 오픈소스](https://www.kaggle.com/madz2000/flowers-classification-using-vgg19-88-accuracy/notebook)
+
+---------------
 
 ### 21.11.26 Update
-###Feature 폴더 : 
+
+#### Feature 폴더 : 
 이 안에 있는 npy값은 크게 두가지이다.
 1.이미지 경로가 들어있는 npy값 (필요한지모르겠음. 잠시 띄우기 위해서 우선 저장함. 사용할 사람마다 달라짐.
 현재 저 안에 있는 값은 ErasePic 폴더 안에있는 이미지들인데 이는 너무 커서 보내기 힘듦...) 바꿔서 사용해야함.
@@ -63,12 +102,11 @@ Crop된 npy파일 드라이브: https://drive.google.com/file/d/1QqkhMAMvRbJV8gT
 
  2)Total_RealLast_Erase_1_2.npy -> 자른 상태 추출 (자른 상태 보기 위해)
 
-###
-Making_NPY.py : npy 파일 만들고
+#### Making_NPY.py :
+npy 파일 만들고
 Test_With_Prepared NPY.py로 만들어진 npy를 이용해 비교.
 
-###
-Top-extract 폴더 : 
+#### Top-extract 폴더 : 
 상의 자를 이미지를 image 폴더에 넣고 main.py로 동작함.
 
 필요한 다운로드 파일 :
@@ -78,16 +116,32 @@ https://drive.google.com/file/d/1DPydA0FpLYEHaFYDa8_oZAot_Ou5JefK/edit (밑에�
 
 참조 깃은 노션에 존재
 
+----------------
+### 21.11.24 Update
 
+#### Study of Model :
+* 시온님께서 선택하신 모델인 `VGG16` or 여러가지 모델에 맞춘 공부 진행
+    1. [여러 모델에 맞는 전처리 등의 방법 공부를 위한 사이트](https://blog.naver.com/PostView.nhn?blogId=syg7949&logNo=221883713196&categoryNo=27&parentCategoryNo=27&from=thumbnailList)
+        - unlabeled data의 feature extraction 가능 여부 확인 -> 기본적으로 `VGG16`이 Classification을 위한 모델이고, 기반이 되는 데이터 `ImageNet`도 1000개의 label이 있는 image classification dataset.
+        - data augmentation이 불가능한 경우 존재 -> 확인하기 [VGG16에 맞춘 data augmentation 활용 공부 사이트](https://blog.naver.com/PostView.nhn?blogId=syg7949&logNo=221886870386&parentCategoryNo=27&categoryNo=41&viewDate=&isShowPopularPosts=false&from=thumbnailList)
+    2. Develop model을 위한 방법 찾기
+        - MNIST를 함께 써서 develop 가능 여부 확인 (여러 모델 엮어 사용할 경우 가능할 것으로 판단)
+        - 데이터 전처리 진행 예제 찾아보기
 
+* 전체적인 모델링 과정에 도움이 될 오픈소스 공부
+[Study of Model](https://honeycomb-makers.tistory.com/3)
 
+#### DataPreprocessing & Augmentation :
+* Keras 내 데이터 전처리 및 증식 찾기 : [공부 코드들은 모두 Notion 참고](https://www.notion.so/Data-Preprocessing-Augmentation-7eba4d7f4b474b62aecf92c9e9df4228)
+
+----------------
 
 ### 21.11.19 Update
-###Feature 폴더 : 
+#### Feature 폴더 : 
 의상들의 특징이 저장되어있는 npy들과 이미지 파일들의 위치가 저장되어있는 npy파일이 있다.
 이미지 파일의 위치는, 사용자에게 띄워주기 위해 잠시 존재하고 있다. ->회의 필요
 
-####의상 전처리 코드 (입고있는 옷 잘라서 배경 지우기)
+#### 의상 전처리 코드 (입고있는 옷 잘라서 배경 지우기)
 
  사용법 : python extract.py (이미지명)
 -> 이 코드가 적절하다 판단하면 모든 15만개의 파일을 적용시켜 저장 ->회의필요
@@ -114,9 +168,8 @@ https://drive.google.com/file/d/1l7PUB8uAGRyqvZ0ti0ZACoI2CzJxOVoI/view
  그에따라 저장되어있는 npy 파일(이미 크롤링 된 사진들을 모두 다 자르기) 에서 찾는 방식을 구상중..  
 
 
-
+----------------
 ### 21.11.17 Update
-=======
 
 #### Train Data 수집 
 * 상의 데이터 총 5만개 크롤링 완료 (`MusinsaCrawling_1.2.ipynb` 파일로 진행)
