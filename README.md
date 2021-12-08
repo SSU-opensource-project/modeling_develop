@@ -86,6 +86,13 @@ Crop된 npy파일 드라이브: https://drive.google.com/file/d/1QqkhMAMvRbJV8gT
     - 전체적으로 참고하고자 한 오픈 소스 및 모델링 과정
     [참고 오픈소스](https://www.kaggle.com/madz2000/flowers-classification-using-vgg19-88-accuracy/notebook)
 
+#### 이 때 사용한 모든 파일들은 `/fail to develop modeling_csh` 폴더 내에 존재.
+* `ImagePreprocessing2.ipynb` : 5000 * 1000 개의 데이터를 augmentation 했던 코드.
+* `ImagePreprocessing2 - 복사본.ipynb` : 1000 * 50 개의 데이터를 augmentation 했던 코드.
+* `Csv_data_labeling.ipynb` : 1000개의 data를 기존에 있던 `train_top50000.csv`에서 뽑아내 labeling한 코드.
+* `train_label_top50000.csv` : labeling한 파일. `Csv_data_labeling.ipynb`를 통해 생성.
+* `YOLO_develop_stop.ipynb` : YOLO로 원하는 모델링 진행하다가 중단.
+
 ---------------
 
 ### 21.11.26 Update
