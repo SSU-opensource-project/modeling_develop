@@ -75,7 +75,7 @@ Crop된 npy파일 드라이브: https://drive.google.com/file/d/1QqkhMAMvRbJV8gT
         - 데이터 labeling : 0~999 (총 1000개의 labeling)
         - 한 개의 label 당 존재하는 데이터 : 약 50개
         - 총 데이터 51875개로 확인.
-        ![drawble/data_aug2.PNG](./drawble/data_aug.PNG)
+        ![drawble/data_aug2.PNG](./drawble/data_aug2.PNG)
 
 * Data Preprocessing & Modeling :
     1. `YOLO`를 통해서 Upper clothes를 인식 -> Crop하는 방식 생각
