@@ -122,7 +122,6 @@ https://drive.google.com/file/d/1l7PUB8uAGRyqvZ0ti0ZACoI2CzJxOVoI/view
 * 상의 데이터 총 5만개 크롤링 완료 (`MusinsaCrawling_1.2.ipynb` 파일로 진행)
     1. 소요시간 : 3시간 이내
     2. 문제점 : 중복되는 상품 존재(url과 상품명으로 조합했을 때 발견한 건들) 삭제하려고 했으나, 저장된 제품의 사진 넘버와 데이터의 넘버가 일치하지 않는 문제 고려 -> 중복되는 데이터 품기로
-    ![drawble/data2.PNG](./drawble/data2.PNG)
     3. 상품 정보에 대한 csv 파일 (`train_top50000.csv` 파일 확인)
 
 * 데이터를 불리기 위한 Data Augmentataion 작업 -> 회의 필요
